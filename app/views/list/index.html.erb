@@ -1,0 +1,17 @@
+<h1>List of Countries</h1>
+<table>
+<th>id</th>
+<th>Country</th>
+<th>Population</th>
+<th>Land Area (Square kilometers)</th>
+<th>Population Density</th>
+  <% @items.each do |item| %>
+<tr>
+    <td><%= item["CountryID"] %></td>
+    <td><%= item["CountryName"] %></td>
+    <td><%= item["Population"] %></td>
+    <td><%= item["LandAreaKM"] %></td>
+    <td><%= item["PopulationDensity"] %></td>
+</tr>
+  <% end %>
+</table>
