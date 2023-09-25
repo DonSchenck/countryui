@@ -18,5 +18,9 @@ module Countryui
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+        # Allow requests from subdomains like `www.product.com` and
+    # `beta1.product.com`.
+    Rails.application.config.hosts << ".openshiftapps.com"
+
   end
 end

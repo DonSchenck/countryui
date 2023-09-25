@@ -1,11 +1,23 @@
-FROM registry.access.redhat.com/ubi9/ruby-30
+# Base image
+FROM ruby:latest
 
-#RUN apt-get update && apt-get install -y npm && npm install -g yarn
-USER root
+ENV HOME /home/rails/webapp
 
-COPY . /app
-WORKDIR /app
+# Install PGsql dependencies and js engine
+RUN apt-get update -qq && apt-get install -y build-essential libpq-dev nodejs
 
+WORKDIR $HOME
+
+# Install gems
+ADD Gemfile* $HOME/
 RUN bundle install
 
+
+# Add the app code
+ADD . $HOME
+
+EXPOSE 3000
+
+# Default command
 CMD rails s -b 0.0.0.0
+#CMD ["rails", "server", "--binding", "0.0.0.0”]
