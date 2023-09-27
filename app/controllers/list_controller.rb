@@ -6,11 +6,11 @@ class ListController < ApplicationController
     def index
 
         parsed_url = URI.parse("https://getcountrieslist-rhn-engineering-dsch-dev.apps.sandbox-m3.1530.p1.openshiftapps.com/countries")
+        parsed_url = URI.parse("http://getcountrieslist:8080/countries")
         http = Net::HTTP.new(parsed_url.host, parsed_url.port)
         
-        http.use_ssl = true
-
         puts "Ready to GET"
+        puts parsed_url.request_uri
 
         request = Net::HTTP::Get.new(parsed_url.request_uri)
         response = http.request(request)

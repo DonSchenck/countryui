@@ -3,6 +3,15 @@ require "active_support/core_ext/integer/time"
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
+  Rails.application.configure do
+    # Whitelist one hostname
+    config.hosts << ".openshiftapp.com"
+    # Whitelist a test domain. Rails adds \A and \z around
+    # your regular expressions.
+    config.hosts << /application\.local/
+  end
+
+
   # In the development environment your application's code is reloaded any time
   # it changes. This slows down response time but is perfect for development
   # since you don't have to restart the web server when you make code changes.
@@ -69,4 +78,15 @@ Rails.application.configure do
 
   # Uncomment if you wish to allow Action Cable access from any origin.
   # config.action_cable.disable_request_forgery_protection = true
+  # config/environments/development.rb in Subscription service project
+  Rails.application.configure do
+    config.hosts = [
+      IPAddr.new("0.0.0.0/0"), # All IPv4 addresses.
+      IPAddr.new("::/0"),      # All IPv6 addresses.
+      "localhost",             # The localhost reserved domain.
+      "getcountrieslist",   # Allow this to be addressed when running in containers via docker-compose.yml.
+      "countryui-rhn-engineering-dsch-dev.apps.sandbox-m3.1530.p1.openshiftapps.com",
+    ]
+    # other config settings...
+  end
 end
